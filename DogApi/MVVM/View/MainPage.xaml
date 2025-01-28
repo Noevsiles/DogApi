@@ -13,20 +13,28 @@
         <Grid RowDefinitions="Auto, *, Auto">
 
             <VerticalStackLayout Spacing="10" Padding="10">
+
+                <Entry  Placeholder="Escribe aquí el ID de tu perro..." x:Name="DogIdEntry"
+                        PlaceholderColor="Black"/>
+                <Button Text="Buscar perro por ID" 
+                        BackgroundColor="RosyBrown"
+                        Command="{Binding GetDogByIdCommand}" 
+                        CommandParameter="{Binding Text, Source={x:Reference DogIdEntry}}"/>
+
                 <Entry Placeholder="Nombre" 
                    PlaceholderColor="Black"
                    Text="{Binding CurrentDog.Name}"
                    TextColor="Black"/>
-            <Entry Placeholder="Raza" 
+                <Entry Placeholder="Raza" 
                    PlaceholderColor="Black"
                    Text="{Binding CurrentDog.Race}"
                    TextColor="Black"/>
-            <Entry Placeholder="Dueño" 
+                <Entry Placeholder="Dueño" 
                    PlaceholderColor="Black"
                    Text="{Binding CurrentDog.Owner}" 
                    TextColor="Black"/>
             <HorizontalStackLayout Spacing="10">
-                <Button Text="Añadir Perro" 
+                <Button Text="Añadir o Actualizar Perro" 
                         Command="{Binding AddOrUpdateCommand}" 
                         BackgroundColor="RosyBrown"/>
                 <Button Text="Eliminar Perro" 

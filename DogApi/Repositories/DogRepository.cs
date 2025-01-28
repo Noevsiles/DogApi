@@ -24,6 +24,7 @@ namespace DogApi.Repositories
             return new List<Dog>();
         }
 
+        //metodo para añadir o actualizar un perro en la lista
         public async Task AddOrUpdateAsync(Dog dog)
         {
             var json = JsonSerializer.Serialize(dog);
@@ -39,9 +40,35 @@ namespace DogApi.Repositories
             }
         }
 
+        //metodo para borrar un perro de la lista
         public async Task DeleteAsync(string id)
         {
             await _httpClient.DeleteAsync($"{BaseUrl}/{id}");
         }
+
+        //metodo para buscar un perro por su id
+        public async Task<Dog?> GetByIdAsync(string id)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"{BaseUrl}/{id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<Dog>(json);
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode}");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Excepción: {ex.Message}");
+                return null;
+            }
+        }
+
     }
 }
